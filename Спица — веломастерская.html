@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>«Спица» — веломастерская</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600&family=Unbounded:wght@600;700&display=swap" rel="stylesheet">
+<style>
+/* Цвета и шрифты — здесь. Меняйте переменные, и вся страница перекрасится. */
+:root{
+  --bg:#F3F6F7; --ink:#0F2A3D; --muted:#4B6272; --line:#B7C6CF;
+  --hero:#5BC8C0; --hero-ink:#0F2A3D; --btn:#0F2A3D; --btn-ink:#F3F6F7;
+  --display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --body:"Onest",system-ui,-apple-system,"Segoe UI",sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D1B25; --ink:#E4EEF1; --muted:#93A9B5; --line:#2D4453;
+    --hero:#164E4B; --hero-ink:#E4EEF1; --btn:#5BC8C0; --btn-ink:#0D1B25;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D1B25; --ink:#E4EEF1; --muted:#93A9B5; --line:#2D4453;
+  --hero:#164E4B; --hero-ink:#E4EEF1; --btn:#5BC8C0; --btn-ink:#0D1B25;
+  color-scheme:dark;
+}
+html{background:var(--hero);scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.6 var(--body)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.wrap{max-width:68rem;margin:0 auto;padding:0 1.25rem}
+
+/* Шапка и главный экран */
+.hero{background:var(--hero);color:var(--hero-ink)}
+.hero .wrap{display:grid;gap:2rem;padding-top:1.25rem;padding-bottom:3rem}
+.brand{font:700 1.25rem var(--display);letter-spacing:-.02em}
+h1{font:700 clamp(1.9rem,5.2vw,3.3rem)/1.08 var(--display);letter-spacing:-.03em;margin:1rem 0 1.25rem}
+.lead{max-width:34rem;font-size:1.15rem;margin:0 0 1.75rem}
+.btns{display:flex;flex-wrap:wrap;gap:.75rem}
+.btn{display:inline-block;padding:.85rem 1.4rem;border-radius:999px;font-weight:600;text-decoration:none;
+  background:var(--btn);color:var(--btn-ink);border:2px solid var(--btn)}
+.btn.ghost{background:transparent;color:inherit;border-color:currentColor}
+.btn:hover{transform:translateY(-2px)}
+.wheel-box{justify-self:center;width:min(100%,26rem);text-align:center}
+#wheelSvg{width:100%;height:auto;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none;color:var(--hero-ink)}
+#wheelSvg:active{cursor:grabbing}
+.speed{font:600 1rem var(--display);margin:.5rem 0 0}
+.hint{font-size:.9rem;opacity:.8;margin:.25rem 0 0}
+@media (min-width:820px){
+  .hero .wrap{grid-template-columns:1.1fr .9fr;align-items:center;padding-top:1.5rem;padding-bottom:4rem}
+}
+
+/* Разделы */
+section{padding:3.5rem 0}
+h2{font:700 clamp(1.5rem,3.4vw,2.1rem)/1.15 var(--display);letter-spacing:-.02em;margin:0 0 .75rem}
+.split{display:grid;gap:2rem}
+@media (min-width:820px){.split{grid-template-columns:1fr 1.3fr;gap:4rem}}
+.note{color:var(--muted);max-width:26rem;margin:0}
+.prices{list-style:none;margin:0;padding:0}
+.prices li{display:flex;align-items:baseline;gap:.75rem;padding:.7rem 0}
+.prices i{flex:1;border-bottom:2px dotted var(--line);transform:translateY(-.3em)}
+.prices b{font-weight:600;white-space:nowrap}
+.prices .free b{color:var(--ink);background:var(--hero);padding:.1rem .6rem;border-radius:999px}
+.steps{display:grid;gap:1.5rem;margin-top:1.5rem}
+@media (min-width:820px){.steps{grid-template-columns:repeat(3,1fr);gap:2.5rem}}
+.step{border-left:4px solid var(--hero);padding-left:1rem}
+.step h3{font:600 1.05rem var(--display);margin:0 0 .4rem}
+.step p{margin:0;color:var(--muted)}
+footer{background:var(--hero);color:var(--hero-ink);padding:2.5rem 0}
+footer .wrap{display:grid;gap:1rem}
+@media (min-width:820px){footer .wrap{grid-template-columns:1fr 1fr 1fr}}
+footer p{margin:0}
+footer strong{font-family:var(--display);font-weight:600;display:block;margin-bottom:.25rem}
+@media (prefers-reduced-motion:reduce){.btn:hover{transform:none}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <div class="brand">Спица</div>
+      <h1>Починим за день и скажем, что именно сломалось</h1>
+      <p class="lead">Небольшая мастерская для городских, шоссейных и горных велосипедов. Диагностика бесплатная, цену называем до начала работы.</p>
+      <div class="btns">
+        <a class="btn" href="#prices">Посмотреть цены</a>
+        <a class="btn ghost" href="tel:+70000000000">Позвонить</a>
+      </div>
+    </div>
+    <div class="wheel-box">
+      <svg id="wheelSvg" viewBox="-130 -130 260 260" role="img" aria-label="Велосипедное колесо: потяните, чтобы раскрутить">
+        <g id="wheel" fill="none" stroke="currentColor"></g>
+      </svg>
+      <p class="speed" id="speed">0 км/ч</p>
+      <p class="hint">Потяните колесо по кругу, чтобы раскрутить</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="prices">
+    <div class="wrap split">
+      <div>
+        <h2>Что сколько стоит</h2>
+        <p class="note">Цены в примере условные. Подставьте свои в файле: каждая строка списка — одна услуга.</p>
+      </div>
+      <ul class="prices">
+        <li class="free"><span>Диагностика</span><i></i><b>бесплатно</b></li>
+        <li><span>Замена камеры</span><i></i><b>1 500</b></li>
+        <li><span>Регулировка тормозов</span><i></i><b>2 000</b></li>
+        <li><span>Настройка переключателей</span><i></i><b>2 500</b></li>
+        <li><span>Замена цепи</span><i></i><b>3 000</b></li>
+        <li><span>Полное обслуживание</span><i></i><b>12 000</b></li>
+      </ul>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <h2>Как это устроено</h2>
+      <div class="steps">
+        <div class="step"><h3>Привозите велосипед</h3><p>Без записи, в рабочие часы. Если нужно, договоримся и о времени.</p></div>
+        <div class="step"><h3>Осматриваем и звоним</h3><p>Рассказываем, что нашли, и называем итоговую цену. Без вашего «да» ничего не трогаем.</p></div>
+        <div class="step"><h3>Чиним и возвращаем</h3><p>Большинство работ готовы в тот же день. Старые детали отдаём вам.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>Адрес</strong>Ваша улица, 12, двор слева</p>
+    <p><strong>Часы работы</strong>Пн–Сб, 10:00–19:00</p>
+    <p><strong>Телефон</strong><a href="tel:+70000000000">+7 000 000-00-00</a></p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var g = document.getElementById('wheel'), svg = document.getElementById('wheelSvg'),
+      out = document.getElementById('speed'), NS = 'http://www.w3.org/2000/svg';
+  function el(n, a){ var e = document.createElementNS(NS, n); for (var k in a) e.setAttribute(k, a[k]); g.appendChild(e); }
+
+  // Шины, обод, спицы, втулка
+  el('circle', {r:124, 'stroke-width':10});
+  el('circle', {r:115, 'stroke-width':2.5});
+  for (var i = 0; i < 32; i++){
+    var t = i * Math.PI / 16, off = (i % 4 < 2 ? 1 : -1) * 0.38;
+    el('line', {x1:(Math.cos(t)*13).toFixed(2), y1:(Math.sin(t)*13).toFixed(2),
+                x2:(Math.cos(t+off)*114).toFixed(2), y2:(Math.sin(t+off)*114).toFixed(2), 'stroke-width':1});
+  }
+  el('circle', {r:14, 'stroke-width':4, fill:'currentColor'});
+  el('circle', {cx:0, cy:-104, r:4, fill:'currentColor', stroke:'none'}); // ниппель — по нему видно вращение
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var idle = reduce ? 0 : 0.25, a = 0, v = idle, dragging = false, lastAng = 0, frame = 0;
+
+  function angle(e){
+    var r = svg.getBoundingClientRect();
+    return Math.atan2(e.clientY - (r.top + r.height/2), e.clientX - (r.left + r.width/2)) * 180 / Math.PI;
+  }
+  svg.addEventListener('pointerdown', function(e){
+    dragging = true; lastAng = angle(e);
+    try { svg.setPointerCapture(e.pointerId); } catch(_){}
+  });
+  svg.addEventListener('pointermove', function(e){
+    if (!dragging) return;
+    var n = angle(e), d = n - lastAng;
+    if (d > 180) d -= 360; if (d < -180) d += 360;
+    a += d; v = d; lastAng = n;
+  });
+  function stop(){ dragging = false; }
+  svg.addEventListener('pointerup', stop);
+  svg.addEventListener('pointercancel', stop);
+
+  function tick(){
+    if (!dragging) { v = idle + (v - idle) * 0.985; a += v; }
+    g.setAttribute('transform', 'rotate(' + a.toFixed(2) + ')');
+    if (++frame % 6 === 0) {
+      // колесо 28": радиус около 0,34 м; v — градусов за кадр при 60 кадрах/с
+      var kmh = Math.abs(v) * 60 * Math.PI / 180 * 0.34 * 3.6;
+      out.textContent = Math.round(kmh) + ' км/ч';
+    }
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+</script>
+</body>
+</html>
